@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Sorting Algorithms</title>
+    <link rel="shortcut icon" href="img/favicon.jpg"> <!--source: https://icons8.com/icon/11239/source-code -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open Sans Condensed:700">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <main>
+        <h1 id="title" class="grid-item">Sorting algorithms visualized</h1>
+        <section class="grid-container">
+            <canvas id="canvas" class="grid-item" width="800" height="600"></canvas>
+            <section class="inner-grid">
+                <button id="start-button" class="grid-item">Start</button>
+                <button id="reset-button" class="grid-item">Reset</button>
+                <button id="shuffle-button" class="grid-item ">Shuffle</button>
+                <select id="algorithms" class="grid-item">
+                    <option value=0 selected>Pick an algorithm</option>
+                </select>
+                <input id="elements" class="grid-item" type="number" placeholder=" # of elements">
+            </section>
+        </section>
+    </main>
+
+    <script type="text/javascript" src="js/setup.js"></script>
+    <script type="text/javascript" src="js/rectangle.js"></script>
+    <script type="text/javascript" src="js/bubbleSort.js"></script>
+    <script type="text/javascript" src="js/selectionSort.js"></script>
+    <script type="text/javascript" src="js/insertionSort.js"></script>
+    <script type="text/javascript" src="js/binaryInsertion.js"></script>
+    <script type="text/javascript" src="js/gravitySort.js"></script>
+    <script type="text/javascript" src="js/mergeSort.js"></script>
+    <script type="text/javascript" src="js/quickSort.js"></script>
+    <script type="text/javascript" src="js/cocktailSort.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+
+</html>
