@@ -13,7 +13,17 @@ var barWidth = 0;
 var isRunning = false;
 
 var array;
-var algorithmsArray = [null, new BubbleSort(), new SelectionSort(), new InsertionSort(), new BinaryInsertionSort(), new CocktailSort(), new MergeSort(), new QuickSort(), new GravitySort()];
+var algorithmsArray = [
+  null,
+  new BubbleSort(),
+  new SelectionSort(),
+  new InsertionSort(),
+  new BinaryInsertionSort(),
+  new CocktailSort(),
+  new MergeSort(),
+  new QuickSort(),
+  new GravitySort()
+];
 
 createSelectionInput(algorithmsArray);
 makeBackground();
@@ -24,65 +34,73 @@ toggleElements();
 //#############################################################################################################
 //-------------------------------------------------------------------------------------------------------------
 
-elementsInput.addEventListener("input", function(event) { //Number of elements textbox
-    var numberOfElements = collectInputValue();
+elementsInput.addEventListener("input", function(event) {
+  //Number of elements textbox
+  var numberOfElements = collectInputValue();
 
-    barWidth = canvas.width / numberOfElements;
-    array = [];
+  barWidth = canvas.width / numberOfElements;
+  array = [];
 
-    var count = barWidth;
+  var count = barWidth;
 
-    for (var i = 0; i < numberOfElements; i++, count += barWidth) {
-        array[i] = new Bar(barWidth, slope * count);
-    }
+  for (var i = 0; i < numberOfElements; i++, count += barWidth) {
+    array[i] = new Bar(barWidth, slope * count);
+  }
 
-    array = shuffle(array);
+  array = shuffle(array);
 
-    toggleElements();
-    drawOnScreen(array, "white");
+  toggleElements();
+  drawOnScreen(array, "white");
 });
 
 //-------------------------------------------------------------------------------------------------------------
 
 algorithmsInput.addEventListener("change", function(event) {
-    toggleElements();
-    shuffleButton.dispatchEvent(new Event("click"));
+  toggleElements();
+  shuffleButton.dispatchEvent(new Event("click"));
 });
 
 //-------------------------------------------------------------------------------------------------------------
 
 startButton.addEventListener("click", async function(event) {
-    console.log("Running " + algorithmsArray[algorithmsInput.value].name + " for " + elementsInput.value + " elements");
-    isRunning = true;
-    toggleElements();
+  console.log(
+    "Running " +
+      algorithmsArray[algorithmsInput.value].name +
+      " for " +
+      elementsInput.value +
+      " elements"
+  );
+  isRunning = true;
+  toggleElements();
 
-    await algorithmsArray[algorithmsInput.value].sort(array);
+  await algorithmsArray[algorithmsInput.value].sort(array);
 
-    console.log("Done!");
-    isRunning = false;
+  console.log("Done!");
+  isRunning = false;
 
-    drawOnScreen(array, "#00FF00");
-    toggleElements();
+  drawOnScreen(array, "#00FF00");
+  toggleElements();
 });
 
 //-------------------------------------------------------------------------------------------------------------
 
 shuffleButton.addEventListener("click", function(event) {
-    array = shuffle(array);
-    toggleElements();
-    drawOnScreen(array, "white");
+  array = shuffle(array);
+  toggleElements();
+  drawOnScreen(array, "white");
 });
 
 //-------------------------------------------------------------------------------------------------------------
 
-resetButton.addEventListener("click", function(event) { //Reset button
-    elementsInput.value = "";
-    algorithmsInput.value = 0;
+resetButton.addEventListener("click", function(event) {
+  //Reset button
+  elementsInput.value = "";
+  algorithmsInput.value = 0;
 
-    elementsInput.dispatchEvent(new Event("input"));
-    algorithmsInput.dispatchEvent(new Event("change"));
+  elementsInput.dispatchEvent(new Event("input"));
+  algorithmsInput.dispatchEvent(new Event("change"));
 
-    toggleElements();
+  toggleElements();
 });
 
 //#############################################################################################################
@@ -91,66 +109,75 @@ resetButton.addEventListener("click", function(event) { //Reset button
 //-------------------------------------------------------------------------------------------------------------
 
 function toggleStartButton() {
-    console.log();
-    if (((elementsInput.value === 0 || elementsInput.value === "0" || elementsInput.value === "") ||
-            (algorithmsInput.value === "0" || algorithmsInput.value === 0)) ||
-        isRunning) {
-        startButton.disabled = true;
-    } else {
-        startButton.disabled = false;
-    }
+  console.log();
+  if (
+    elementsInput.value === 0 ||
+    elementsInput.value === "0" ||
+    elementsInput.value === "" ||
+    algorithmsInput.value === "0" ||
+    algorithmsInput.value === 0 ||
+    isRunning
+  ) {
+    startButton.disabled = true;
+  } else {
+    startButton.disabled = false;
+  }
 }
 
 //-------------------------------------------------------------------------------------------------------------
 
 function toggleResetButton() {
-    if (((elementsInput.value === 0 || elementsInput.value === "0" || elementsInput.value === "") &&
-            (algorithmsInput.value === "0" || algorithmsInput.value === 0)) ||
-        isRunning) {
-        resetButton.disabled = true;
-    } else {
-        resetButton.disabled = false;
-    }
+  if (
+    ((elementsInput.value === 0 ||
+      elementsInput.value === "0" ||
+      elementsInput.value === "") &&
+      (algorithmsInput.value === "0" || algorithmsInput.value === 0)) ||
+    isRunning
+  ) {
+    resetButton.disabled = true;
+  } else {
+    resetButton.disabled = false;
+  }
 }
 
 //-------------------------------------------------------------------------------------------------------------
 
 function toggleShuffleButton() {
-    if (!startButton.disabled && !isRunning) {
-        shuffleButton.disabled = false;
-    } else {
-        shuffleButton.disabled = true;
-    }
+  if (!startButton.disabled && !isRunning) {
+    shuffleButton.disabled = false;
+  } else {
+    shuffleButton.disabled = true;
+  }
 }
 
 //-------------------------------------------------------------------------------------------------------------
 
 function toggleAlgorithmSelection() {
-    if (!resetButton.disabled && !isRunning) {
-        algorithmsInput.disabled = false;
-    } else {
-        algorithmsInput.disabled = true;
-    }
+  if (!resetButton.disabled && !isRunning) {
+    algorithmsInput.disabled = false;
+  } else {
+    algorithmsInput.disabled = true;
+  }
 }
 
 //-------------------------------------------------------------------------------------------------------------
 
 function toggleElementsInput() {
-    if (!isRunning) {
-        elementsInput.disabled = false;
-    } else {
-        elementsInput.disabled = true;
-    }
+  if (!isRunning) {
+    elementsInput.disabled = false;
+  } else {
+    elementsInput.disabled = true;
+  }
 }
 
 //-------------------------------------------------------------------------------------------------------------
 
 function toggleElements() {
-    toggleResetButton();
-    toggleStartButton();
-    toggleShuffleButton();
-    toggleAlgorithmSelection();
-    toggleElementsInput();
+  toggleResetButton();
+  toggleStartButton();
+  toggleShuffleButton();
+  toggleAlgorithmSelection();
+  toggleElementsInput();
 }
 
 //#############################################################################################################
@@ -158,46 +185,47 @@ function toggleElements() {
 //#############################################################################################################
 //-------------------------------------------------------------------------------------------------------------
 
-function drawOnScreen(array, color) { //display an array as a bar graph
-    makeBackground();
+function drawOnScreen(array, color) {
+  //display an array as a bar graph
+  makeBackground();
 
-    var position = 0;
+  var position = 0;
 
-    for (var i = 0; i < array.length; i++) {
-        array[i].color = color;
-        array[i].display(position);
-        position += barWidth;
-    }
+  for (var i = 0; i < array.length; i++) {
+    array[i].color = color;
+    array[i].display(position);
+    position += barWidth;
+  }
 }
 
 //-------------------------------------------------------------------------------------------------------------
 
 function createSelectionInput(optionsArray) {
-    for (var i = 1; i < optionsArray.length; i++) {
-        algorithmsInput.appendChild(createOption(optionsArray[i].name, i));
-    }
+  for (var i = 1; i < optionsArray.length; i++) {
+    algorithmsInput.appendChild(createOption(optionsArray[i].name, i));
+  }
 }
 
 //-------------------------------------------------------------------------------------------------------------
 
 function createOption(name, value) {
-    var option = document.createElement("option");
-    option.textContent = name;
-    option.value = value;
+  var option = document.createElement("option");
+  option.textContent = name;
+  option.value = value;
 
-    return option;
+  return option;
 }
 
 //-------------------------------------------------------------------------------------------------------------
 
 function collectInputValue() {
-    if (elementsInput.value < 0) {
-        elementsInput.value = "";
-    }
+  if (elementsInput.value < 0) {
+    elementsInput.value = "";
+  }
 
-    if (elementsInput.value > 9999) {
-        elementsInput.value = 9999
-    }
+  if (elementsInput.value > 9999) {
+    elementsInput.value = 9999;
+  }
 
-    return elementsInput.value;
+  return elementsInput.value;
 }
